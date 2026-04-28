@@ -1,8 +1,8 @@
 # CivicData Bridge
 
-CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.0 ships the local package, FastAPI runtime, deterministic helper functions, tests, release gates, public documentation, and browser-verified sample UI for preparing municipal datasets before human-approved publication.
+CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.1 ships the local package, FastAPI runtime, deterministic helper functions, tests, release gates, public documentation, and browser-verified sample UI for preparing municipal datasets before human-approved publication.
 
-## Shipping in v0.1.0
+## Shipping in v0.1.1
 
 - Dataset field normalization for CKAN-friendly names, date/time hints, and geospatial-review notes.
 - Data-dictionary draft generation from source schema metadata.
@@ -22,7 +22,7 @@ CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.0 s
 
 ## Install and run locally
 
-CivicData Bridge v0.1.0 is pinned to `civiccore==0.2.0`.
+CivicData Bridge v0.1.1 is pinned to `civiccore==0.3.0`.
 
 ```bash
 python -m venv .venv

@@ -33,7 +33,7 @@ current_files=(README.md README.txt USER-MANUAL.md USER-MANUAL.txt CHANGELOG.md 
 stale_patterns=(
   CivicComms civiccomms Civic311 civic311 CivicNotice civicnotice Open311
   "campaign content" "autonomous publication" "live CKAN publishing ships" "data warehouse ships"
-  "0.1.0.dev0" "~=0.2" "MIT"
+  "0.1.1.dev0" "~=0.2" "MIT"
 )
 
 for file in "${current_files[@]}"; do
@@ -45,8 +45,8 @@ for file in "${current_files[@]}"; do
   done
 done
 
-if ! grep -Fq "civiccore==0.2.0" README.md; then
-  echo "VERIFY-DOCS: FAILED README.md must mention civiccore==0.2.0"
+if ! grep -Fq "civiccore==0.3.0" README.md; then
+  echo "VERIFY-DOCS: FAILED README.md must mention civiccore==0.3.0"
   exit 1
 fi
 if ! grep -Fq "No live CKAN publication" docs/index.html; then

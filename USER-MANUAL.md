@@ -17,7 +17,7 @@ CivicData Bridge helps a city prepare datasets before they are published to an o
 
 Every dataset still needs staff approval before publication. Staff must confirm the source-system owner, redaction/exemption status, open-data license, retention schedule, and publication target.
 
-### What v0.1.0 does not do
+### What v0.1.1 does not do
 
 CivicData Bridge does not publish directly to CKAN, does not host dashboards, does not store a data warehouse, does not make legal exemption decisions, and does not redact records automatically.
 
@@ -43,11 +43,11 @@ flowchart LR
 
 ### Endpoints
 
-The public endpoints are listed in `README.md`. All v0.1.0 endpoints are deterministic and local. They do not perform live connector calls or publish data to external services.
+The public endpoints are listed in `README.md`. All v0.1.1 endpoints are deterministic and local. They do not perform live connector calls or publish data to external services.
 
 ### Dependency contract
 
-CivicData Bridge depends on `civiccore==0.2.0`. CivicCore must not import CivicData Bridge.
+CivicData Bridge depends on `civiccore==0.3.0`. CivicCore must not import CivicData Bridge.
 
 ### Verification
 

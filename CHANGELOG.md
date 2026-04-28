@@ -2,6 +2,13 @@
 
 All notable changes to CivicData Bridge are documented here. This project follows Keep a Changelog style and uses semantic versioning.
 
+## [0.1.1] - 2026-04-28
+
+### Changed
+
+- Dependency-alignment release: moved CivicData Bridge to `civiccore==0.3.0` while preserving the existing v0.1.0 runtime foundation behavior.
+- Updated CI, verification gates, package metadata, docs, runtime tests, landing page, and public UI labels for the v0.1.1 release.
+
 ## [0.1.0] - 2026-04-27
 
 ### Added

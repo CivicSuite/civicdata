@@ -1,4 +1,4 @@
-CivicData Bridge v0.1.0
+CivicData Bridge v0.1.1
 
 CivicData Bridge prepares municipal datasets for open-data review. It ships dataset normalization, data-dictionary drafts, CKAN package metadata drafts, PII/exemption preflight, archive-bundle checklists, publication planning, FastAPI endpoints, tests, docs, and browser QA evidence.
 

@@ -1,4 +1,4 @@
-"""Dataset normalization helpers for CivicData Bridge v0.1.0."""
+"""Dataset normalization helpers for CivicData Bridge v0.1.1."""
 
 from dataclasses import dataclass
 import re

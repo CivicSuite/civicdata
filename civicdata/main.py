@@ -1,7 +1,7 @@
 """FastAPI runtime foundation for CivicData Bridge."""
 
 from civiccore import __version__ as CIVICCORE_VERSION
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
@@ -20,6 +20,12 @@ app = FastAPI(
     version=__version__,
     description="Open-data normalization, CKAN package drafts, archive bundles, and redaction-review support for CivicSuite.",
 )
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon() -> Response:
+    """Return an empty favicon response so browser QA has a clean console."""
+
+    return Response(status_code=204)
 
 
 class FieldDefinition(BaseModel):
@@ -74,7 +80,7 @@ def root() -> dict[str, str]:
             "publication planning, and public UI foundation are online; live CKAN publishing, BI dashboards, "
             "data warehouse storage, autonomous redaction, and external connector runtime are not implemented yet."
         ),
-        "next_step": "Post-v0.1.0 roadmap: live connector imports, staff approval queues, and CKAN handoff adapters",
+        "next_step": "Post-v0.1.1 roadmap: live connector imports, staff approval queues, and CKAN handoff adapters",
     }
 
 
