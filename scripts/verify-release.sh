@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "VERIFY-RELEASE: CivicData Bridge v0.1.0"
+echo "VERIFY-RELEASE: CivicData Bridge v0.1.1"
 
 PYTHON_CANDIDATES=()
 if [[ -n "${CIVICDATA_RELEASE_PYTHON:-}" ]]; then
@@ -35,7 +35,7 @@ rm -rf dist
 "$PYTHON_BIN" - <<'PY'
 from pathlib import Path
 import hashlib
-expected = {"civicdata-0.1.0-py3-none-any.whl", "civicdata-0.1.0.tar.gz"}
+expected = {"civicdata-0.1.1-py3-none-any.whl", "civicdata-0.1.1.tar.gz"}
 dist = Path("dist")
 found = {p.name for p in dist.iterdir() if p.is_file()}
 missing = expected - found
@@ -50,8 +50,8 @@ print("[PASS] build artifacts and SHA256SUMS")
 PY
 "$PYTHON_BIN" - <<'PY'
 import civicdata
-assert civicdata.__version__ == "0.1.0"
-print("[PASS] package version 0.1.0")
+assert civicdata.__version__ == "0.1.1"
+print("[PASS] package version 0.1.1")
 PY
 
 echo "VERIFY-RELEASE: PASSED"

@@ -24,7 +24,7 @@ for path in SOURCE_ROOT.rglob("*.py"):
         if match:
             name = match.group(1)
             violations.append(
-                f"{path}:{lineno}: civiccore.{name} is a placeholder package in v0.2.0. See AGENTS.md section 3.1."
+                f"{path}:{lineno}: civiccore.{name} is a placeholder package in v0.3.0. See AGENTS.md section 3.1."
             )
 if violations:
     print("PLACEHOLDER-IMPORT-CHECK: FAILED")

@@ -9,6 +9,7 @@ def render_public_lookup_page() -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
 <title>CivicData Bridge - open data preparation</title>
 <style>
 :root{--ink:#17231d;--green:#1e6b4f;--mint:#d9f2e6;--gold:#c4943d;--paper:#fffaf0}
@@ -25,15 +26,15 @@ code{background:var(--mint);padding:.1rem .35rem;border-radius:.35rem}:focus-vis
 <header>
   <p class="eyebrow">CivicSuite / CivicData Bridge</p>
   <h1>Open-data packages with review gates built in.</h1>
-  <p class="lede">CivicData Bridge v0.1.0 helps staff normalize municipal datasets, draft data dictionaries, prepare CKAN-ready package metadata, and assemble records-retention archive checklists.</p>
-  <p><span class="badge">Shipping v0.1.0</span></p>
+  <p class="lede">CivicData Bridge v0.1.1 helps staff normalize municipal datasets, draft data dictionaries, prepare CKAN-ready package metadata, and assemble records-retention archive checklists.</p>
+  <p><span class="badge">Shipping v0.1.1</span></p>
 </header>
 <main>
   <section class="grid" aria-label="CivicData release status">
     <article class="card"><h2>What ships</h2><ul><li>Dataset field normalization.</li><li>Data-dictionary drafting.</li><li>CKAN package metadata drafts.</li><li>PII/exemption redaction preflight.</li><li>Archive-bundle and publication checklists.</li></ul></article>
     <article class="card"><h2>Human approval required</h2><p>Every export must clear staff approval, redaction/exemption review, retention checks, and open-data license confirmation before publication.</p></article>
-    <article class="card"><h2>Boundaries</h2><p>No live CKAN publication, no BI dashboards, no data warehouse, no long-term storage, no autonomous redaction, and no external connector runtime ships in v0.1.0.</p></article>
-    <article class="card"><h2>Dependency</h2><p>Pinned to <code>civiccore==0.2.0</code>. CivicCore remains dependency-only; it never imports from CivicData.</p></article>
+    <article class="card"><h2>Boundaries</h2><p>No live CKAN publication, no BI dashboards, no data warehouse, no long-term storage, no autonomous redaction, and no external connector runtime ships in v0.1.1.</p></article>
+    <article class="card"><h2>Dependency</h2><p>Pinned to <code>civiccore==0.3.0</code>. CivicCore remains dependency-only; it never imports from CivicData.</p></article>
   </section>
 </main>
 <footer><p>Apache 2.0 code. CC BY 4.0 docs. Run locally by the city.</p></footer>
