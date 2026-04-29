@@ -26,15 +26,15 @@ code{background:var(--mint);padding:.1rem .35rem;border-radius:.35rem}:focus-vis
 <header>
   <p class="eyebrow">CivicSuite / CivicData Bridge</p>
   <h1>Open-data packages with review gates built in.</h1>
-  <p class="lede">CivicData Bridge v0.1.1 helps staff normalize municipal datasets, draft data dictionaries, prepare CKAN-ready package metadata, and assemble records-retention archive checklists.</p>
-  <p><span class="badge">Shipping v0.1.1</span></p>
+  <p class="lede">CivicData Bridge v0.1.2 helps staff normalize municipal datasets, draft data dictionaries, prepare CKAN-ready package metadata, protect persisted retrieval with bearer roles, and assemble records-retention archive checklists.</p>
+  <p><span class="badge">Shipping v0.1.2</span></p>
 </header>
 <main>
   <section class="grid" aria-label="CivicData release status">
     <article class="card"><h2>What ships</h2><ul><li>Dataset field normalization.</li><li>Data-dictionary drafting.</li><li>CKAN package metadata drafts.</li><li>PII/exemption redaction preflight.</li><li>Archive-bundle and publication checklists.</li></ul></article>
     <article class="card"><h2>Human approval required</h2><p>Every export must clear staff approval, redaction/exemption review, retention checks, and open-data license confirmation before publication.</p></article>
-    <article class="card"><h2>Boundaries</h2><p>No live CKAN publication, no BI dashboards, no data warehouse, no long-term storage, no autonomous redaction, and no external connector runtime ships in v0.1.1.</p></article>
-    <article class="card"><h2>Dependency</h2><p>Pinned to <code>civiccore==0.3.0</code>. CivicCore remains dependency-only; it never imports from CivicData.</p></article>
+    <article class="card"><h2>Boundaries</h2><p>No live CKAN publication, no BI dashboards, no data warehouse, no long-term storage, no autonomous redaction, and no external connector runtime ships in v0.1.2.</p></article>
+    <article class="card"><h2>Dependency</h2><p>Pinned to <code>civiccore==0.4.0</code>. Retrieval auth uses <code>CIVICDATA_AUTH_TOKEN_ROLES</code>. CivicCore remains dependency-only; it never imports from CivicData.</p></article>
   </section>
 </main>
 <footer><p>Apache 2.0 code. CC BY 4.0 docs. Run locally by the city.</p></footer>

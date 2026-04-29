@@ -1,6 +1,6 @@
-CivicData Bridge v0.1.1
+CivicData Bridge v0.1.2
 
-CivicData Bridge prepares municipal datasets for open-data review. It ships dataset normalization, data-dictionary drafts, CKAN package metadata drafts, optional database-backed CKAN package/publication-plan workpapers, PII/exemption preflight, archive-bundle checklists, publication planning, FastAPI endpoints, tests, docs, and browser QA evidence.
+CivicData Bridge prepares municipal datasets for open-data review. It ships dataset normalization, data-dictionary drafts, CKAN package metadata drafts, optional database-backed CKAN package/publication-plan workpapers, bearer-token protection for persisted retrieval, PII/exemption preflight, archive-bundle checklists, publication planning, FastAPI endpoints, tests, docs, and browser QA evidence.
 
 It does not ship live CKAN publishing, BI dashboards, data warehouse storage, autonomous redaction, or external connector runtime.
 
@@ -8,7 +8,7 @@ Run locally:
   python -m pip install -e ".[dev]"
   python -m uvicorn civicdata.main:app --host 127.0.0.1 --port 8137
 
-Set CIVICDATA_PUBLICATION_DB_URL to persist CKAN package drafts and publication plans. Without it, CivicData Bridge remains deterministic and stateless.
+Set CIVICDATA_PUBLICATION_DB_URL to persist CKAN package drafts and publication plans. Set CIVICDATA_AUTH_TOKEN_ROLES to a JSON token-to-role map before exposing persisted retrieval. Without the database variable, CivicData Bridge remains deterministic and stateless. Without the auth variable, persisted retrieval endpoints return actionable 503 guidance. With auth configured, anonymous callers receive 401 and unauthorized roles receive 403.
 
 Important routes:
   /health

@@ -2,6 +2,17 @@
 
 All notable changes to CivicData Bridge are documented here. This project follows Keep a Changelog style and uses semantic versioning.
 
+## [0.1.2] - 2026-04-29
+
+### Added
+
+- Bearer-token auth and role checks for persisted CKAN package and publication-plan retrieval via `CIVICDATA_AUTH_TOKEN_ROLES` and `civiccore.auth`.
+
+### Changed
+
+- Moved CivicData Bridge to `civiccore==0.4.0` so persisted retrieval protection consumes the published shared auth helper instead of a module-local bridge.
+- Updated CI, release verification, docs, runtime tests, landing page, and public UI labels for the v0.1.2 dependency and auth boundary.
+
 ## [0.1.1] - 2026-04-28
 
 ### Added

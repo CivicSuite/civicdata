@@ -12,13 +12,13 @@ CivicData Bridge helps a city prepare datasets before they are published to an o
 4. Run a deterministic preflight for PII or exempt-record field names.
 5. Create an archive bundle checklist tied to records-retention schedules.
 6. Draft a publication checklist for recurring datasets.
-7. Retrieve saved CKAN package and publication-plan workpapers when IT enables persistence.
+7. Retrieve saved CKAN package and publication-plan workpapers when IT enables persistence and retrieval auth.
 
 ### Required human review
 
 Every dataset still needs staff approval before publication. Staff must confirm the source-system owner, redaction/exemption status, open-data license, retention schedule, and publication target.
 
-### What v0.1.1 does not do
+### What v0.1.2 does not do
 
 CivicData Bridge does not publish directly to CKAN, does not host dashboards, does not store a data warehouse, does not make legal exemption decisions, and does not redact records automatically.
 
@@ -28,7 +28,7 @@ CivicData Bridge does not publish directly to CKAN, does not host dashboards, do
 
 Install with `python -m pip install -e ".[dev]"` and run with `python -m uvicorn civicdata.main:app --host 127.0.0.1 --port 8137`.
 
-Set `CIVICDATA_PUBLICATION_DB_URL` to enable SQLAlchemy-backed CKAN package draft and publication-plan records. Leave it unset for deterministic stateless operation.
+Set `CIVICDATA_PUBLICATION_DB_URL` to enable SQLAlchemy-backed CKAN package draft and publication-plan records. Set `CIVICDATA_AUTH_TOKEN_ROLES` to a JSON token-to-role map before exposing persisted retrieval. Leave the database variable unset for deterministic stateless operation.
 
 ### Architecture
 
@@ -46,11 +46,11 @@ flowchart LR
 
 ### Endpoints
 
-The public endpoints are listed in `README.md`. All v0.1.1 endpoints are deterministic and local. They do not perform live connector calls or publish data to external services. Retrieval endpoints require `CIVICDATA_PUBLICATION_DB_URL`.
+The public endpoints are listed in `README.md`. All v0.1.2 endpoints are deterministic and local. They do not perform live connector calls or publish data to external services. Retrieval endpoints require both `CIVICDATA_PUBLICATION_DB_URL` and `CIVICDATA_AUTH_TOKEN_ROLES`.
 
 ### Dependency contract
 
-CivicData Bridge depends on `civiccore==0.3.0`. CivicCore must not import CivicData Bridge.
+CivicData Bridge depends on `civiccore==0.4.0`. CivicCore must not import CivicData Bridge.
 
 ### Verification
 

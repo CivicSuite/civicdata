@@ -3,7 +3,9 @@
 import os
 
 from civiccore import __version__ as CIVICCORE_VERSION
-from fastapi import FastAPI, HTTPException, Response
+from civiccore.auth import AuthenticatedPrincipal, authorize_bearer_roles
+from fastapi import Depends, FastAPI, HTTPException, Response
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
@@ -30,6 +32,7 @@ app = FastAPI(
 
 _publication_repository: PublicationWorkpaperRepository | None = None
 _publication_db_url: str | None = None
+_publication_bearer = HTTPBearer(auto_error=False)
 
 
 @app.get("/favicon.ico", include_in_schema=False)
@@ -92,7 +95,10 @@ def root() -> dict[str, str]:
             "public UI foundation are online; live CKAN publishing, BI dashboards, data warehouse storage, "
             "autonomous redaction, and external connector runtime are not implemented yet."
         ),
-        "next_step": "Post-v0.1.1 roadmap: live connector imports, staff approval queues, and CKAN handoff adapters",
+        "next_step": (
+            "Post-v0.1.2 roadmap: live connector imports, staff approval queues, "
+            "SSO-aligned publisher access, and CKAN handoff adapters"
+        ),
     }
 
 
@@ -155,14 +161,31 @@ def ckan_package(request: CKANPackageRequest) -> dict[str, object]:
     }
 
 
+def _require_publication_reader(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_publication_bearer),
+) -> AuthenticatedPrincipal:
+    return authorize_bearer_roles(
+        credentials,
+        service_name="CivicData Bridge",
+        feature_name="persisted publication workpaper retrieval",
+        token_roles_env_var="CIVICDATA_AUTH_TOKEN_ROLES",
+        allowed_roles={"workpaper_reader", "data_admin"},
+    )
+
+
 @app.get("/api/v1/civicdata/ckan-package/{package_id}")
-def get_ckan_package(package_id: str) -> dict[str, object]:
+def get_ckan_package(
+    package_id: str,
+    _principal: AuthenticatedPrincipal = Depends(_require_publication_reader),
+) -> dict[str, object]:
     if _publication_database_url() is None:
         raise HTTPException(
             status_code=503,
             detail={
-                "message": "CivicData publication workpaper persistence is not configured.",
-                "fix": "Set CIVICDATA_PUBLICATION_DB_URL to retrieve persisted CKAN package drafts.",
+                "message": "CivicData persisted publication retrieval auth is not configured.",
+                "fix": (
+                    "Set CIVICDATA_AUTH_TOKEN_ROLES before exposing persisted CKAN package retrieval."
+                ),
             },
         )
     stored = _get_publication_repository().get_ckan_package(package_id)
@@ -213,7 +236,10 @@ def publication_plan(request: PublicationPlanRequest) -> dict[str, object]:
 
 
 @app.get("/api/v1/civicdata/publication-plan/{plan_id}")
-def get_publication_plan(plan_id: str) -> dict[str, object]:
+def get_publication_plan(
+    plan_id: str,
+    _principal: AuthenticatedPrincipal = Depends(_require_publication_reader),
+) -> dict[str, object]:
     if _publication_database_url() is None:
         raise HTTPException(
             status_code=503,
