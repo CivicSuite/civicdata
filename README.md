@@ -1,13 +1,14 @@
 # CivicData Bridge
 
-CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.1 ships the local package, FastAPI runtime, deterministic helper functions, optional database-backed publication workpapers, tests, release gates, public documentation, and browser-verified sample UI for preparing municipal datasets before human-approved publication.
+CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.2 ships the local package, FastAPI runtime, deterministic helper functions, optional database-backed publication workpapers, bearer-token protection for persisted retrieval, tests, release gates, public documentation, and browser-verified sample UI for preparing municipal datasets before human-approved publication.
 
-## Shipping in v0.1.1
+## Shipping in v0.1.2
 
 - Dataset field normalization for CKAN-friendly names, date/time hints, and geospatial-review notes.
 - Data-dictionary draft generation from source schema metadata.
 - CKAN/open-data package metadata drafts with license and redaction blockers.
 - Optional SQLAlchemy-backed CKAN package and publication-plan workpaper records through `CIVICDATA_PUBLICATION_DB_URL`.
+- Bearer-token protection for persisted CKAN package and publication-plan retrieval through `CIVICDATA_AUTH_TOKEN_ROLES`.
 - PII/exemption preflight review that blocks readiness until staff review clears findings.
 - Records-retention archive bundle checklist support.
 - Scheduled publication planning checklists that require human approval.
@@ -20,10 +21,11 @@ CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.1 s
 - Data warehouse storage or long-term operational data storage beyond archive-bundle planning.
 - Autonomous redaction or automatic exemption decisions.
 - External connector runtime, approval queues, or CivicRecords exemption-engine integration.
+- Staff SSO and role-based publication approvals. v0.1.2 protects persisted retrieval only; broader workflow auth comes later.
 
 ## Install and run locally
 
-CivicData Bridge v0.1.1 is pinned to `civiccore==0.3.0`.
+CivicData Bridge v0.1.2 is pinned to `civiccore==0.4.0`.
 
 ```bash
 python -m venv .venv
@@ -34,7 +36,7 @@ python -m uvicorn civicdata.main:app --host 127.0.0.1 --port 8137
 
 Open `http://127.0.0.1:8137/civicdata` for the browser sample and `http://127.0.0.1:8137/docs` for FastAPI docs.
 
-Set `CIVICDATA_PUBLICATION_DB_URL` to persist CKAN package drafts and publication plans. Without it, CivicData Bridge remains deterministic and stateless.
+Set `CIVICDATA_PUBLICATION_DB_URL` to persist CKAN package drafts and publication plans. Set `CIVICDATA_AUTH_TOKEN_ROLES` to a JSON token-to-role map before exposing persisted retrieval. Without the database variable, CivicData Bridge remains deterministic and stateless. Without the auth variable, persisted retrieval endpoints return actionable `503` guidance. With auth configured, anonymous callers receive `401` and callers without an allowed role receive `403`.
 
 ## API surface
 
@@ -44,11 +46,11 @@ Set `CIVICDATA_PUBLICATION_DB_URL` to persist CKAN package drafts and publicatio
 - `POST /api/v1/civicdata/normalize` normalizes field metadata.
 - `POST /api/v1/civicdata/data-dictionary` drafts data-dictionary entries.
 - `POST /api/v1/civicdata/ckan-package` drafts CKAN package metadata.
-- `GET /api/v1/civicdata/ckan-package/{package_id}` retrieves a persisted CKAN package draft when persistence is configured.
+- `GET /api/v1/civicdata/ckan-package/{package_id}` retrieves a persisted CKAN package draft when both persistence and retrieval auth are configured.
 - `POST /api/v1/civicdata/redaction-review` flags PII/exemption review needs.
 - `POST /api/v1/civicdata/archive-bundle` prepares records-retention archive checklists.
 - `POST /api/v1/civicdata/publication-plan` prepares human-approved publication checklists.
-- `GET /api/v1/civicdata/publication-plan/{plan_id}` retrieves a persisted publication plan when persistence is configured.
+- `GET /api/v1/civicdata/publication-plan/{plan_id}` retrieves a persisted publication plan when both persistence and retrieval auth are configured.
 
 ## Verification
 

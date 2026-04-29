@@ -4,7 +4,6 @@ import sys
 
 PLACEHOLDERS = (
     "audit",
-    "auth",
     "catalog",
     "connectors",
     "exemptions",
@@ -24,7 +23,7 @@ for path in SOURCE_ROOT.rglob("*.py"):
         if match:
             name = match.group(1)
             violations.append(
-                f"{path}:{lineno}: civiccore.{name} is a placeholder package in v0.3.0. See AGENTS.md section 3.1."
+                f"{path}:{lineno}: civiccore.{name} is a placeholder package in civiccore v0.4.0. See AGENTS.md section 3.1."
             )
 if violations:
     print("PLACEHOLDER-IMPORT-CHECK: FAILED")

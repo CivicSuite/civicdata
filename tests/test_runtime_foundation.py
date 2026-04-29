@@ -23,17 +23,17 @@ def test_health_reports_civiccore_pin():
     assert response.status_code == 200
     payload = response.json()
     assert payload["service"] == "civicdata"
-    assert payload["version"] == "0.1.1"
-    assert payload["civiccore_version"] == "0.3.0"
+    assert payload["version"] == "0.1.2"
+    assert payload["civiccore_version"] == "0.4.0"
 
 
 def test_public_ui_contains_version_boundaries_and_dependency():
     response = client.get("/civicdata")
     assert response.status_code == 200
     text = response.text
-    assert "CivicData Bridge v0.1.1" in text
+    assert "CivicData Bridge v0.1.2" in text
     assert "No live CKAN publication" in text
-    assert "civiccore==0.3.0" in text
+    assert "civiccore==0.4.0" in text
 
 
 def test_api_endpoints_return_deterministic_payloads():
