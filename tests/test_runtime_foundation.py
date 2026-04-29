@@ -12,7 +12,8 @@ def test_root_reports_honest_current_state():
     payload = response.json()
     assert payload["name"] == "CivicData Bridge"
     assert payload["version"] == __version__
-    assert payload["status"] == "open-data foundation"
+    assert payload["status"] == "open-data foundation plus publication workpaper persistence"
+    assert "database-backed CKAN package/publication-plan workpapers" in payload["message"]
     assert "live CKAN publishing" in payload["message"]
     assert "not implemented yet" in payload["message"]
 
@@ -48,7 +49,7 @@ def test_api_endpoints_return_deterministic_payloads():
             "license_id": "CC-BY-4.0",
             "fields": fields,
         },
-    ).status_code == 200
+    ).json()["package_id"] is None
     assert client.post(
         "/api/v1/civicdata/redaction-review", json={"field_names": ["resident_email"]}
     ).json()["ready_for_publication"] is False
@@ -58,4 +59,4 @@ def test_api_endpoints_return_deterministic_payloads():
     ).status_code == 200
     assert client.post(
         "/api/v1/civicdata/publication-plan", json={"dataset_title": "311", "cadence": "weekly"}
-    ).json()["human_approval_required"] is True
+    ).json()["plan_id"] is None
