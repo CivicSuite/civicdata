@@ -2,7 +2,7 @@
 
 ## Non-technical staff guide
 
-CivicData Bridge helps a city prepare datasets before they are published to an open-data portal. It is a preparation and review tool, not an automatic publishing robot.
+CivicData Bridge helps a city prepare datasets before they are published to an open-data portal. It is a preparation and review tool with optional saved CKAN package/publication-plan workpapers, not an automatic publishing robot.
 
 ### What staff can do today
 
@@ -12,6 +12,7 @@ CivicData Bridge helps a city prepare datasets before they are published to an o
 4. Run a deterministic preflight for PII or exempt-record field names.
 5. Create an archive bundle checklist tied to records-retention schedules.
 6. Draft a publication checklist for recurring datasets.
+7. Retrieve saved CKAN package and publication-plan workpapers when IT enables persistence.
 
 ### Required human review
 
@@ -26,6 +27,8 @@ CivicData Bridge does not publish directly to CKAN, does not host dashboards, do
 ### Runtime
 
 Install with `python -m pip install -e ".[dev]"` and run with `python -m uvicorn civicdata.main:app --host 127.0.0.1 --port 8137`.
+
+Set `CIVICDATA_PUBLICATION_DB_URL` to enable SQLAlchemy-backed CKAN package draft and publication-plan records. Leave it unset for deterministic stateless operation.
 
 ### Architecture
 
@@ -43,7 +46,7 @@ flowchart LR
 
 ### Endpoints
 
-The public endpoints are listed in `README.md`. All v0.1.1 endpoints are deterministic and local. They do not perform live connector calls or publish data to external services.
+The public endpoints are listed in `README.md`. All v0.1.1 endpoints are deterministic and local. They do not perform live connector calls or publish data to external services. Retrieval endpoints require `CIVICDATA_PUBLICATION_DB_URL`.
 
 ### Dependency contract
 

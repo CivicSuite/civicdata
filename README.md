@@ -1,12 +1,13 @@
 # CivicData Bridge
 
-CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.1 ships the local package, FastAPI runtime, deterministic helper functions, tests, release gates, public documentation, and browser-verified sample UI for preparing municipal datasets before human-approved publication.
+CivicData Bridge is the CivicSuite open-data preparation module. Version 0.1.1 ships the local package, FastAPI runtime, deterministic helper functions, optional database-backed publication workpapers, tests, release gates, public documentation, and browser-verified sample UI for preparing municipal datasets before human-approved publication.
 
 ## Shipping in v0.1.1
 
 - Dataset field normalization for CKAN-friendly names, date/time hints, and geospatial-review notes.
 - Data-dictionary draft generation from source schema metadata.
 - CKAN/open-data package metadata drafts with license and redaction blockers.
+- Optional SQLAlchemy-backed CKAN package and publication-plan workpaper records through `CIVICDATA_PUBLICATION_DB_URL`.
 - PII/exemption preflight review that blocks readiness until staff review clears findings.
 - Records-retention archive bundle checklist support.
 - Scheduled publication planning checklists that require human approval.
@@ -33,6 +34,8 @@ python -m uvicorn civicdata.main:app --host 127.0.0.1 --port 8137
 
 Open `http://127.0.0.1:8137/civicdata` for the browser sample and `http://127.0.0.1:8137/docs` for FastAPI docs.
 
+Set `CIVICDATA_PUBLICATION_DB_URL` to persist CKAN package drafts and publication plans. Without it, CivicData Bridge remains deterministic and stateless.
+
 ## API surface
 
 - `GET /` reports current product state and boundaries.
@@ -41,9 +44,11 @@ Open `http://127.0.0.1:8137/civicdata` for the browser sample and `http://127.0.
 - `POST /api/v1/civicdata/normalize` normalizes field metadata.
 - `POST /api/v1/civicdata/data-dictionary` drafts data-dictionary entries.
 - `POST /api/v1/civicdata/ckan-package` drafts CKAN package metadata.
+- `GET /api/v1/civicdata/ckan-package/{package_id}` retrieves a persisted CKAN package draft when persistence is configured.
 - `POST /api/v1/civicdata/redaction-review` flags PII/exemption review needs.
 - `POST /api/v1/civicdata/archive-bundle` prepares records-retention archive checklists.
 - `POST /api/v1/civicdata/publication-plan` prepares human-approved publication checklists.
+- `GET /api/v1/civicdata/publication-plan/{plan_id}` retrieves a persisted publication plan when persistence is configured.
 
 ## Verification
 

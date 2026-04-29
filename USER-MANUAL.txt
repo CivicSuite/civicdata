@@ -1,7 +1,7 @@
 CivicData Bridge User Manual
 
-For staff: CivicData Bridge prepares municipal datasets for open-data review. It normalizes fields, drafts data dictionaries, prepares CKAN package metadata, flags possible PII/exempt fields, and creates archive/publication checklists.
+For staff: CivicData Bridge prepares municipal datasets for open-data review. It normalizes fields, drafts data dictionaries, prepares CKAN package metadata, flags possible PII/exempt fields, creates archive/publication checklists, and optionally retrieves saved CKAN package/publication-plan workpapers.
 
 Staff must approve every dataset before publication. v0.1.1 does not publish to CKAN, host dashboards, store a data warehouse, redact automatically, or make exemption decisions.
 
-For IT: install with python -m pip install -e ".[dev]" and run with python -m uvicorn civicdata.main:app --host 127.0.0.1 --port 8137. The package depends on civiccore==0.3.0 and runs locally.
+For IT: install with python -m pip install -e ".[dev]" and run with python -m uvicorn civicdata.main:app --host 127.0.0.1 --port 8137. The package depends on civiccore==0.3.0 and runs locally. Set CIVICDATA_PUBLICATION_DB_URL to enable SQLAlchemy-backed CKAN package draft and publication-plan records; leave it unset for deterministic stateless operation.

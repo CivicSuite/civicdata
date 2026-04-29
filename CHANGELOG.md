@@ -4,6 +4,11 @@ All notable changes to CivicData Bridge are documented here. This project follow
 
 ## [0.1.1] - 2026-04-28
 
+### Added
+
+- Optional SQLAlchemy-backed CKAN package draft and publication-plan workpaper records via `CIVICDATA_PUBLICATION_DB_URL`.
+- CKAN package and publication-plan retrieval endpoints for persisted records.
+
 ### Changed
 
 - Dependency-alignment release: moved CivicData Bridge to `civiccore==0.3.0` while preserving the existing v0.1.0 runtime foundation behavior.
